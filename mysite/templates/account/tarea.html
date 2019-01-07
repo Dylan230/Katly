@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+
+{% block inicio %} href="{% url 'account:inicio' %}"{% endblock %}
+
+{% block section %}
+<h3 class="text-center mt-5 mb-5">Tarea</h3>
+<form method="post" enctype="multipart/form-data" class="d-flex justify-content-center">
+{% csrf_token %}
+<div class="form.group">
+    <label>Título</label>
+    <br>
+    <input type="text" name="title" class="form-control">
+    <br>
+    <label>Descripción</label>
+    <br>
+    {{ form.description }}
+    <br>
+    <label>Grupo</label>
+    <select class="form-control" name="group">
+    {% for a in p %}
+	<option class="form-control" value="{{ a }}">{{ a }}</option>
+	{% endfor %}    
+    </select>
+    <br>
+    <label class="btn btn-info btn-sm" for="id_archive">Seleccione archivo</label>
+    <input id="id_archive" type="file" name="archive" hidden>
+    <br>
+    <button type="submit" class="btn btn-sm btn-primary mb-5 mt-4">Enviar</button>
+    </div>
+</form>
+
+
+{% endblock %}

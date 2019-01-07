@@ -1,0 +1,112 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block inicio %} href="{% url 'account:inicio' %}"{% endblock %}
+
+{% block section %}
+
+{% if r == 'Profesor' %}
+
+<h3 class="text-center mt-5">Bienvenido Profesor {{ request.user.username }}</h3>
+
+<div class="list-group mt-5 col-xl-3 col-12 pr-0">
+    <a href="#" class="list-group-item list-group-item-action active">
+      Menú
+    </a>
+    <a href="{% url 'account:grupo' %}" class="list-group-item list-group-item-action">Crear grupo
+    </a>
+    <a href="{% url 'account:add_to_grupo' %}" class="list-group-item list-group-item-action">Agregar a grupo
+    </a>
+    <a href="{% url 'account:tarea' %}" class="list-group-item list-group-item-action">Crear tarea
+    </a>
+  </div>
+
+  {% if res == 0 %}
+
+  <div class="alert alert-dark mt-5 text-center" role="alert">
+  
+    No hay tareas
+
+  </div>
+
+
+  {% else %}
+
+  <div class="table-responsive">
+  <table class="table mt-5">
+    <thead>
+      <tr>
+        <th scope="col">Usuario</th>
+        <th scope="col">Título</th>
+        <th scope="col">Grupo</th>
+        <th scope="col">Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ nombre }}</td>
+        <td>{{ title }}</td>
+        <td>{{ group }}</td>
+        <form action="{% url 'account:ver' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="id" value="{{ id_tarea }}" id="id">
+        <input type="text" name="nombre" value="{{ nombre }}" id="nombre">
+        <td><input type="submit" class="btn btn-primary btn-sm" value="Ver"></td>
+        </form>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+{% endif %}
+{% else %}
+
+<h3 class="text-center mt-5">Bienvenido Alumno {{ request.user.username }}</h3>
+
+  {% if res == 0 %}
+
+  <div class="alert alert-dark mt-5 text-center" role="alert">
+  
+    No hay tareas
+
+  </div>
+
+
+  {% else %}
+
+  <div class="table-responsive">
+  <table class="table mt-5">
+    <thead>
+      <tr>
+        <th scope="col">Usuario</th>
+        <th scope="col">Título</th>
+        <th scope="col">Grupo</th>
+        <th scope="col">Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ nombre }}</td>
+        <td>{{ titulo }}</td>
+        <td>{{ grupo }}</td>
+        <form action="{% url 'account:ver' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="id" value="{{ id_tarea }}" id="id">
+        <input type="text" name="nombre" value="{{ nombre }}" id="nombre">
+        <td><input type="submit" class="btn btn-primary btn-sm" value="Ver"></td>
+        </form>
+      </tr>
+    </tbody>
+  </table>
+
+  {% endif %}
+  
+  </div>
+
+{% endif %}
+
+{% block extrajs %}
+<script src="{% static 'js/acciones.js' %}"></script>
+{% endblock %}
+
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block extrastatic %}
+
+<link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+
+{% endblock %}
+
+{% block inicio %} href="{% url 'account:inicio' %}"{% endblock %}
+
+{% block section %}
+
+{% if r == 'Profesor' %}
+
+<h3 class="text-center mt-5">Respuesta a tarea</h3>
+
+{% for i in tarea_res %}
+
+<div class="mb-3">Usuario: {{ nombre }}</div>
+<div class="mb-3">Titulo: {{ i.0 }}</div>
+<div class="mb-3">Mensaje: 
+<div class="mt-3" id="mensaje">{{ i.1 }}</div>
+</div>
+<div class="mb-3">Grupo: {{ i.2 }}</div>
+<a href="/media/{{ i.3 }}" class="mb-3 btn btn-info btn-sm" download>{{ i.3 }} </a>
+<br>
+{% endfor %}
+
+{% else %}
+
+<div id="tarea">
+<h3 class="text-center mt-5">Tarea</h3>
+
+{% for i in tarea %}
+
+<div class="mb-3">Usuario: {{ nombre }}</div>
+<div class="mb-3">Titulo: {{ i.0 }}</div>
+<div class="mb-3">Mensaje: 
+<div class="mt-3" id="mensaje">{{ i.1 }}</div>
+</div>
+<div class="mb-3">Grupo: {{ i.2 }}</div>
+<a href="/media/{{ i.3 }}" class="mb-3 btn btn-info btn-sm" download>{{ i.3 }} </a>
+<br>
+{% endfor %}
+
+<button class="btn btn-outline-info btn-sm" id="btn-res">Responder</button>
+</div>
+
+<div id="respuesta">
+<button class="btn btn-outline-info btn-sm mt-3" id="btn-tar">Tarea</button>
+<h3 class="text-center mt-5 mb-5">Respuesta</h3>
+
+<form class="d-flex justify-content-center" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+<div class="form.group">
+<input type="text" name="user_response" value="{{ nombre }}" hidden>
+<label>Titulo</label>
+<input class="form-control" type="text" name="title">
+<br>
+<label>Descripcion</label>
+<br>
+{{ form.description }}
+<br>
+{% for i in tarea %}
+<input class="form-control" type="text" name="group" value="{{ i.2 }}" hidden>
+{% endfor %}
+<br>
+<label for="archivo" class="btn btn-info btn-sm">Seleccione archivo</label>
+<input id="archivo" class="form-control" type="file" name="archive" hidden>
+<br>
+<button type="submit" class="btn btn-sm btn-primary mb-5 mt-4">Enviar</button>
+</div>
+</form>
+</div>
+
+{% endif %}
+
+{% endblock %}
+
+{% block extrajs %}
+
+<script type="text/javascript" src="{% static 'js/acciones.js' %}"></script>
+
+{% endblock %}

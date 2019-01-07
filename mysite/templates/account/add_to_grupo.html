@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+
+{% block inicio %} href="{% url 'account:inicio' %}"{% endblock %}
+
+{% block section %}
+
+<h3 class="text-center mt-5 mb-5">Agregar a grupo</h3>
+<form method="post" class="d-flex justify-content-center">
+{% csrf_token %}
+<div class="form.group">
+<label>Nombre</label>
+<br>
+<select class="form-control" name="name">
+    {% for a in p %}
+	<option class="form-control" value="{{ a }}">{{ a }}</option>    
+	{% endfor %}    
+    </select>
+<br>
+{{ form.user_add }}
+<button type="submit" class="btn btn-sm btn-primary mb-5 mt-4">Crear</button>
+</div>
+
+</form>
+
+
+{% endblock %}

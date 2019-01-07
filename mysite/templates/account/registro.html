@@ -1,0 +1,32 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+	
+Registro
+
+{% endblock %}
+
+{% block section %}
+<h3 class="text-center mt-5 mb-5">Registro</h3>
+<form method="post" class="d-flex justify-content-center">
+{% csrf_token %}
+<div class="form.group">
+<label for="{{ user_form.username.name }}">{{ user_form.username.label }}</label>
+<br>
+{{ user_form.username }}
+<br>
+<label>Contraseña</label>
+<br>
+<input class="form-control" type="password" name="password1">
+<br>
+<label>Confirmar contraseña</label>
+<br>
+<input class="form-control" type="password" name="password2">
+<br>
+<br>
+{{ account_form.as_p}}
+<button type="submit" class="btn btn-sm btn-primary mb-5 mt-4">Registrar</button>
+</div>
+
+</form>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+
+{% block inicio %} href="{% url 'account:inicio' %}"{% endblock %}
+
+{% block section %}
+
+<h3 class="text-center mt-5 mb-5">Crear grupo</h3>
+<form method="post" class="d-flex justify-content-center">
+{% csrf_token %}
+<div class="form.group">
+<label>Nombre</label>
+<br>
+{{ form.name }}
+<br>
+<button type="submit" class="btn btn-sm btn-primary mb-5 mt-4">Crear</button>
+</div>
+
+</form>
+
+
+{% endblock %}
